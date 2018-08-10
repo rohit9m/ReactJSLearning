@@ -13,7 +13,6 @@ var About = createReactClass({
             <ul>
                 <li>React</li>
                 <li>React Router</li>
-                <li>Flux</li>
                 <li>Node</li>
                 <li>Gulp</li>
                 <li>Browserify</li>

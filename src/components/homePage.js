@@ -9,7 +9,7 @@ var Home = createReactClass({
         return(
             <div className="jumbotron">
             <h1>React JS application</h1>
-            <p> Use of React , React-Router and Flux for Web apps </p>
+            <p> Use of React , React-Router for Web apps </p>
             </div>
         );
     }
