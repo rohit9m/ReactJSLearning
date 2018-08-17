@@ -48712,19 +48712,9 @@ module.exports= About;
 var React = require('react');
 var ReactDOM = require('react-dom');
 var createReactClass = require('create-react-class');
-var AuthorAPI = require('../../api/authorAPI');
 
-var Authors = createReactClass({
-    getInitialState:function(){
-        return{
-            authors: []
-        };
-    },
 
-    componentWillMount: function() {
-        this.setState({authors: AuthorAPI.getAllAuthors()});
-    },
-
+var AuthorList = createReactClass({
     render: function(){
         var createAuthorRow = function(author){
             return(
@@ -48738,16 +48728,16 @@ var Authors = createReactClass({
                 )
             );
         };
+
         return(
             React.createElement("div", null, 
-            React.createElement("h1", null, "Authors"), 
             React.createElement("table", {className: "table"}, 
                 React.createElement("thead", null, 
                     React.createElement("th", null, "Id"), 
                     React.createElement("th", null, "Name")
                 ), 
                 React.createElement("tbody", null, 
-                    this.state.authors.map(createAuthorRow, this)
+                    this.props.authors.map(createAuthorRow, this)
                 )
             )
             )
@@ -48755,9 +48745,43 @@ var Authors = createReactClass({
     }
 });
 
+module.exports= AuthorList;
+
+},{"create-react-class":2,"react":29,"react-dom":25}],35:[function(require,module,exports){
+"use strict";
+
+var React = require('react');
+var ReactDOM = require('react-dom');
+var createReactClass = require('create-react-class');
+var AuthorApi = require('../../api/authorAPI');
+var AuthorList = require('./authorList');
+
+var Authors = createReactClass({
+    getInitialState:function(){
+        return{
+            authors: []
+        };
+    },
+
+    componentDidMount: function () {
+        if(this.isMounted()) {
+            this.setState({authors: AuthorApi.getAllAuthors()});
+        }
+    },
+
+    render: function () {
+        return (
+            React.createElement("div", null, 
+                React.createElement("h1", null, "Authors"), 
+                React.createElement(AuthorList, {authors: this.state.authors})
+            )
+        );
+    }
+});
+
 module.exports= Authors;
 
-},{"../../api/authorAPI":31,"create-react-class":2,"react":29,"react-dom":25}],35:[function(require,module,exports){
+},{"../../api/authorAPI":31,"./authorList":34,"create-react-class":2,"react":29,"react-dom":25}],36:[function(require,module,exports){
 "use strict";
 
 var React = require('react');
@@ -48770,7 +48794,7 @@ var Header = createReactClass({
             React.createElement("nav", {className: "navbar navbar-default"}, 
              React.createElement("div", {className: "container-fluid"}, 
                React.createElement("a", {href: "/", className: "navbar-brand"}, 
-                 React.createElement("img", {src: "images/logo.jpeg"})
+                 React.createElement("img", {src: "/images/logo.png"})
                ), 
                React.createElement("ul", {className: "nav navbar-nav"}, 
                  React.createElement("li", null, React.createElement("a", {href: "/"}, "Home")), 
@@ -48785,7 +48809,7 @@ var Header = createReactClass({
 
 module.exports= Header;
 
-},{"create-react-class":2,"react":29,"react-dom":25}],36:[function(require,module,exports){
+},{"create-react-class":2,"react":29,"react-dom":25}],37:[function(require,module,exports){
 "use strict";
 
 var React = require('react');
@@ -48805,7 +48829,7 @@ var Home = createReactClass({
 
 module.exports= Home;
 
-},{"create-react-class":2,"react":29,"react-dom":25}],37:[function(require,module,exports){
+},{"create-react-class":2,"react":29,"react-dom":25}],38:[function(require,module,exports){
 $ = JQuery = require('jquery');
 var React = require('react');
 var ReactDOM = require('react-dom');
@@ -48845,4 +48869,4 @@ var Authors = require('./components/authors/authorPage');
         render();
 })(window);
 
-},{"./components/about/aboutPage":33,"./components/authors/authorPage":34,"./components/common/header":35,"./components/homePage":36,"create-react-class":2,"jquery":18,"react":29,"react-dom":25}]},{},[37]);
+},{"./components/about/aboutPage":33,"./components/authors/authorPage":35,"./components/common/header":36,"./components/homePage":37,"create-react-class":2,"jquery":18,"react":29,"react-dom":25}]},{},[38]);

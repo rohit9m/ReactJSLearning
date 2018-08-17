@@ -3,7 +3,8 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
 var createReactClass = require('create-react-class');
-var AuthorAPI = require('../../api/authorAPI');
+var AuthorApi = require('../../api/authorAPI');
+var AuthorList = require('./authorList');
 
 var Authors = createReactClass({
     getInitialState:function(){
@@ -12,35 +13,17 @@ var Authors = createReactClass({
         };
     },
 
-    componentWillMount: function() {
-        this.setState({authors: AuthorAPI.getAllAuthors()});
+    componentDidMount: function () {
+        if(this.isMounted()) {
+            this.setState({authors: AuthorApi.getAllAuthors()});
+        }
     },
 
-    render: function(){
-        var createAuthorRow = function(author){
-            return(
-                <tr key={author.id}>
-                    <td>
-                        <a href={"/#authors"+ author.id}>{author.id}</a>
-                    </td>
-                    <td>
-                        {author.firstName} {author.lastName}
-                    </td>
-                </tr>
-            );
-        };
-        return(
+    render: function () {
+        return (
             <div>
-            <h1>Authors</h1>
-            <table className="table">
-                <thead>
-                    <th>Id</th>
-                    <th>Name</th>
-                </thead>
-                <tbody>
-                    {this.state.authors.map(createAuthorRow, this)}
-                </tbody>
-            </table>
+                <h1>Authors</h1>
+                <AuthorList authors={this.state.authors}/>
             </div>
         );
     }
